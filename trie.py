@@ -1,12 +1,12 @@
 
 class Node:
-    def __init__(self):
+    def __init__(self)->None:
         self.children = {}
         self.endOfWord = False
         self.wordCount = 0
 
 class Trie:
-    def __init__(self, Document):
+    def __init__(self, Document)->None:
         self.nodes = []
         self.root = Node()
         self.document = -1
