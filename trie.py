@@ -16,7 +16,7 @@ class Trie:
         lookingNode = self.root
         
         for letter in Word:
-            if letter not in lookingNode:
+            if letter not in lookingNode.children.keys():
                 lookingNode.children[letter] = Node()
             lookingNode = lookingNode.children[letter]
         lookingNode.endOfWord =True
@@ -28,7 +28,7 @@ class Trie:
         lookingNode = self.root
         
         for letter in Word:
-            if letter not in lookingNode:
+            if letter not in lookingNode.children.keys:
                 return False
             lookingNode = lookingNode.children[letter]
         

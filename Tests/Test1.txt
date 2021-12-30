@@ -1,0 +1,13 @@
+Information Retrieval allows the storage, management, processing and retrieval 
+of information, documents, websites, etc. Building an IR system for any language is 
+imperative. This is evident through the massive conducted efforts to build IR systems 
+using any of its models that are valid for certain languages. This report presents an 
+implementation for a core IR technique which is Vector Space Model (VSM). We have 
+chosen VSM model for our project since it is a term weighting scheme, and the 
+retrieved documents could be sorted according to their relevancy degree. One other 
+significant feature for such technique is the ability to get a relevance feedback from 
+the users of the system; users can judge whether the retrieved document is relative 
+to their need or not. The developed system has been validated through building an 
+Arabic IR website using server side scripting. The experiments verifies the 
+effectiveness of our system to apply all techniques of vector space model and valid 
+over Arabic language.

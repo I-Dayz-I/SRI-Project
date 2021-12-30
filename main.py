@@ -1,7 +1,15 @@
+import os
+import globals
+import reader
+import trie
 
-def main():
+
+Path = os.getcwd()
+print("Current Working Direcctory is : "+ Path)
+reader.ReadDocuments(Path + "\\Tests")
+    
+print(globals.CorpusDict)
     
     
     
     
-    pass

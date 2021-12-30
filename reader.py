@@ -12,7 +12,7 @@ def ReadDocuments(Path:str)->None:
     onlyfiles = [f for f in listdir(Path) if isfile(join(Path, f))]
     
     for file in onlyfiles:
-        openFile = open(file,'r')
+        openFile = open(Path + "\\" + file,'r')
         documentText = openFile.read()
         openFile.close()
         
@@ -21,9 +21,10 @@ def ReadDocuments(Path:str)->None:
 
 def Curate(Text:str, File:str )->None:
     curedText = re.split(' |\.|\\|\+|\*|\?|\[|\^|\]|\$|\(|\)|\{|\}|\=|\!|\||\:|\-|',Text)
-    temptrie = trie.Trie()
+    temptrie = trie.Trie(File)
     for Word in curedText:
         temptrie.InsertWord(Word)
+        globals.TrieLis.append(temptrie)
     
     globals.CorpusDict[File] = temptrie
     
