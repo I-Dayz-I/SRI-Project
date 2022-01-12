@@ -3,20 +3,31 @@
 import re
 import trie
 import globals
-from os import close, listdir
-from os.path import isfile, join
+import os
 
 
 def ReadDocuments(Path:str)->None:
 
-    onlyfiles = [f for f in listdir(Path) if isfile(join(Path, f))]
+    # onlyfiles = [f for f in listdir(Path) if isfile(join(Path, f))]
     
-    for file in onlyfiles:
-        openFile = open(Path + "\\" + file,'r')
-        documentText = openFile.read()
-        openFile.close()
+    # for file in onlyfiles:
+    #     openFile = open(Path + "\\" + file,'r')
+    #     documentText = openFile.read()
+    #     openFile.close()
         
-        Curate(documentText,file)
+    #     Curate(documentText,file)
+    directory = Path
+    
+    for root, subdirectories, files in os.walk(directory):
+        for subdirectory in subdirectories:
+            print(os.path.join(root, subdirectory))
+        for file in files:
+            openFile = open(os.path.join(root, file))
+            documentText = openFile.read()
+            openFile.close()
+            Curate(documentText,file)
+            print(os.path.join(root, file))
+    
         
 
 def Curate(Text:str, File:str )->None:

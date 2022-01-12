@@ -21,7 +21,7 @@ file_list_column = [
 image_viewer_column = [
     [sg.Text("Results:")],
     [sg.Text(size = (40,1),key="-TOUT-")],
-    [sg.Image(key="-IMAGE-")],
+    [sg.Label(key="-IMAGE-")],
 ]
 
 
