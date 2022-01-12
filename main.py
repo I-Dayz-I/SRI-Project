@@ -2,6 +2,7 @@ import os
 import globals
 import reader
 import trie
+import visuals
 
 
 Path = os.getcwd()
