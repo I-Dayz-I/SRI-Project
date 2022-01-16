@@ -1,2 +1,3 @@
-CorpusDict = {}
-TrieLis= []
+CorpusDict = []
+TrieList= []
+QueryList = []
