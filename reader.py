@@ -6,6 +6,8 @@ import globals
 import os
 
 
+
+    
 def ReadDocuments(Path:str)->None:
 
     # onlyfiles = [f for f in listdir(Path) if isfile(join(Path, f))]

@@ -59,9 +59,6 @@ query_column = [
             values= [],enable_events = True,size =(40,10),
             key = "-RESULT LIST-"
         )],
-    
-    
-    
 ]
 
 
@@ -74,16 +71,7 @@ layout = [
     ]
 ]
 
-window = sg.Window("SRI", layout)
 
-while True:
-    event, values = window.read()
-    if event=="Exit" or event == sg.WIN_CLOSED:
-        window.close()
-        break
-    elif event== "-FOLDER-":
-        dir = values["-FOLDER-"]
-        try:
-            file_list = os.listdir(dir)
-        except:
-            file_list= []
+        
+        
+        
