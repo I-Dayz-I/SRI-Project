@@ -1,18 +1,41 @@
 import PySimpleGUI as sg
 import os
+sg.theme('DarkAmber')
+
+
+
+
+
+TrieCheckBox  = sg.Checkbox(enable_events = True,key =  "-TRIE-",text = "Linked Trie", default  = False)
+NltkCkeckbox = sg.Checkbox(enable_events = True,key =  "-NLTK-",text = "nltk Library", default = True )
+
+
 
 file_list_column = [
+    
+        [
+            sg.Text("Processing Algorithm:",justification="right", )  ,
+        ],
+        [
+        TrieCheckBox,
+        NltkCkeckbox,
+        sg.VSeparator(),
+    
+        ] ,
+        
+ 
+    
     [
         sg.HSeparator()],
     [
         sg.Text("Source Folder:"),
-        sg.In(size=(25,1),enable_events=True, key="-FOLDER-",default_text="Folder Adress"),
+        sg.In(enable_events=True, key="-FOLDER-",default_text="Folder Adress",),
         sg.FolderBrowse(),
     ],
     [sg.Text("List of Files:")],
     [
         sg.Listbox(
-            values= [],enable_events = True,size =(40,10),
+            values= [],enable_events = True,s=(100,100),
             key = "-FILE LIST-"
         )
         
@@ -44,7 +67,7 @@ query_column = [
 
     [sg.Text("Query:")],
     [
-        sg.Multiline(size=(40,10),enable_events=True, key="-QUERY-"),
+        sg.Multiline(s=(900,20),enable_events=True, key="-QUERY-"),
         
     ],
     [
@@ -56,7 +79,7 @@ query_column = [
         [sg.Text("Results:")],
    
     [sg.Listbox(
-            values= [],enable_events = True,size =(40,10),
+            values= [],enable_events = True,s=(900,40),
             key = "-RESULT LIST-"
         )],
 ]
