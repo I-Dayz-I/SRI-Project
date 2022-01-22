@@ -33,7 +33,27 @@ while True:
     if event == "-TRIE-" or TrieCheckBox.Value:
         NltkCkeckbox.Update(False)   
     
-    
+    if event == "-INTCHECK-" and not AlphaCheckbox.Value:
+            AlphaCheckbox.Update(False)
+    if event == "-INTCHECK-" and AlphaCheckbox.Value:
+            AlphaCheckbox.Update(True)
+
+    if event == "-ALPHA INPUT-":
+        try:
+            temp = float(values["-ALPHA INPUT-"])
+            if 0<temp<=1:
+                AlphaCheckbox.Update(True)
+                AlphaCheckbox.Update(checkbox_color='green')
+                globals.alphaValue = temp
+            else:
+                AlphaCheckbox.Update(False)
+                AlphaCheckbox.Update(checkbox_color='red')
+                globals.alphaValue = 0.4
+                pass
+        except:
+            pass
+                
+            
     
     #if a Folder direction was chosen
     elif event== "-FOLDER-":

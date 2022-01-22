@@ -4,7 +4,7 @@ import re
 import trie
 import globals
 import os
-
+import visuals
 
 
     
@@ -22,8 +22,20 @@ def ReadDocuments(Path:str)->None:
     
     for root, subdirectories, files in os.walk(directory):
         for subdirectory in subdirectories:
+            os.path.join(root, subdirectory)
+        for file in files:
+            visuals.finalIntpb +=1
+    
+    visuals.ProgressBar.Update()
+    visuals.ProgressBarText.Update(value = (str(visuals.currentIntpb) + "/" +str(visuals.finalIntpb)))
+    for root, subdirectories, files in os.walk(directory):
+        for subdirectory in subdirectories:
             print(os.path.join(root, subdirectory))
         for file in files:
+            visuals.currentIntpb+=1
+            visuals.ProgressBarText.Update(value = (str(visuals.currentIntpb) + "/" +str(visuals.finalIntpb)))
+            visuals.ProgressBar.Update(current_count=visuals.currentIntpb)
+            
             try:
                 openFile = open(os.path.join(root, file))
                 globals.fnamesList.append(file)
@@ -32,9 +44,8 @@ def ReadDocuments(Path:str)->None:
                 Curate(documentText,file)
             except:
                 pass
-            print(os.path.join(root, file))
-    
-        
+
+
 
 def Curate(Text:str, File:str )->None:
     curedText = re.split(' |\.|\\|\+|\*|\?|\[|\^|\]|\$|\(|\)|\{|\}|\=|\!|\||\:|\-|',Text)

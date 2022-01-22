@@ -8,22 +8,28 @@ sg.theme('DarkAmber')
 
 TrieCheckBox  = sg.Checkbox(enable_events = True,key =  "-TRIE-",text = "Linked Trie", default  = False)
 NltkCkeckbox = sg.Checkbox(enable_events = True,key =  "-NLTK-",text = "nltk Library", default = True )
+AlphaCheckbox = sg.Checkbox(enable_events = True,key =  "-INTCHECK-",text = "Is valid", checkbox_color = 'red', default = False ,  disabled=False)
 
-
+currentIntpb = 0
+finalIntpb = 0
+ProgressBar = sg.ProgressBar(max_value=finalIntpb,size=(60, 20))
+ProgressBarText = sg.Text(str(currentIntpb) + "/" +str(finalIntpb))
 
 file_list_column = [
-    
-        [
+    [
             sg.Text("Processing Algorithm:",justification="right", )  ,
-        ],
-        [
+    ],
+    [
         TrieCheckBox,
         NltkCkeckbox,
-        sg.VSeparator(),
-    
-        ] ,
-        
- 
+    ],
+      # [ sg.VSeparator()],
+    [
+    sg.Text("α: ",justification="right", )  ,
+    sg.In(enable_events=True, key="-ALPHA INPUT-",),
+    AlphaCheckbox,
+    sg.Text(" (Default: 0.4 )",justification="right", )  ,
+    ],
     
     [
         sg.HSeparator()],
@@ -32,28 +38,35 @@ file_list_column = [
         sg.In(enable_events=True, key="-FOLDER-",default_text="Folder Adress",),
         sg.FolderBrowse(),
     ],
+    [
+        #Progress Bar
+    ProgressBarText,
+    ProgressBar,
+    ],
     [sg.Text("List of Files:")],
     [
         sg.Listbox(
-            values= [],enable_events = True,s=(100,100),
+            values= [],enable_events = True,s=(100,100),horizontal_scroll=True,
             key = "-FILE LIST-"
         )
         
     ],
+
     [
-          
     ],
     
 ]
 
 
 
-options_column=[
-    [
-        sg.Text("Options:"),
-    ]
+
+
+
+view_column = [
     
 ]
+
+
 
 # result_column = [
 #     [sg.Text("Results:")],
@@ -74,12 +87,12 @@ query_column = [
         sg.Button(button_text="Submit",)   
     ],
     [
-          sg.HSeparator()
+    sg.HSeparator()
     ],
         [sg.Text("Results:")],
    
     [sg.Listbox(
-            values= [],enable_events = True,s=(900,40),
+            values= [],enable_events = True,s=(900,40),horizontal_scroll=True,
             key = "-RESULT LIST-"
         )],
 ]
