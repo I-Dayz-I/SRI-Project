@@ -38,10 +38,12 @@ while True:
     #if a Folder direction was chosen
     elif event== "-FOLDER-":
         dir = values["-FOLDER-"]
-        try:
-            file_list = os.listdir(dir)
-        except:
-            file_list= []
+        
+        reader.ReadDocuments(dir)
+        file_list= globals.fnamesList
+
+
+        window["-FILE LIST-"].update(file_list)
         
         
 

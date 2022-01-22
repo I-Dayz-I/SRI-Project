@@ -24,10 +24,14 @@ def ReadDocuments(Path:str)->None:
         for subdirectory in subdirectories:
             print(os.path.join(root, subdirectory))
         for file in files:
-            openFile = open(os.path.join(root, file))
-            documentText = openFile.read()
-            openFile.close()
-            Curate(documentText,file)
+            try:
+                openFile = open(os.path.join(root, file))
+                globals.fnamesList.append(file)
+                documentText = openFile.read()
+                openFile.close()
+                Curate(documentText,file)
+            except:
+                pass
             print(os.path.join(root, file))
     
         
@@ -37,7 +41,7 @@ def Curate(Text:str, File:str )->None:
     temptrie = trie.Trie(File)
     for Word in curedText:
         temptrie.InsertWord(Word)
-        globals.TrieLis.append(temptrie)
+        globals.TrieList.append(temptrie)
     
     globals.CorpusDict[File] = temptrie
     

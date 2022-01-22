@@ -1,3 +1,4 @@
-CorpusDict = []
+CorpusDict = {}
+fnamesList = []
 TrieList= []
 QueryList = []
