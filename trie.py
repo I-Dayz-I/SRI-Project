@@ -10,6 +10,7 @@ class Trie:
         self.nodes = []
         self.root = Node()
         self.document = -1
+
     
     
     def InsertWord(self, Word:str)->None:
@@ -21,7 +22,6 @@ class Trie:
             lookingNode = lookingNode.children[letter]
         lookingNode.endOfWord =True
         lookingNode.wordCount +=1
-    
         
     
     def Search(self,Word:str)->bool:
