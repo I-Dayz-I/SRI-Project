@@ -12,7 +12,9 @@ AlphaCheckbox = sg.Checkbox(enable_events = True,key =  "-INTCHECK-",text = "Is 
 
 currentIntpb = 0
 finalIntpb = 0
-ProgressBar = sg.ProgressBar(max_value=finalIntpb,size=(60, 20))
+progressBarMaxValue = 20000
+
+ProgressBar = sg.ProgressBar(max_value=progressBarMaxValue,size=(60, 20))
 ProgressBarText = sg.Text(str(currentIntpb) + "/" +str(finalIntpb))
 
 file_list_column = [
@@ -81,16 +83,14 @@ query_column = [
     [sg.Text("Query:")],
     [
         sg.Multiline(s=(900,20),enable_events=True, key="-QUERY-"),
-        
     ],
     [
-        sg.Button(button_text="Submit",)   
+        sg.Button(button_text="Submit",enable_events=True, key= "-SUBMIT-")   
     ],
     [
     sg.HSeparator()
     ],
         [sg.Text("Results:")],
-   
     [sg.Listbox(
             values= [],enable_events = True,s=(900,40),horizontal_scroll=True,
             key = "-RESULT LIST-"

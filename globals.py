@@ -1,4 +1,9 @@
 CorpusDict = {}
+
+WordCorpusCount = {}
+
+CorpusSolutionDict = {}
+
 fnamesList = []
 TrieList= []
 QueryList = []

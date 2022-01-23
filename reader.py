@@ -25,16 +25,16 @@ def ReadDocuments(Path:str)->None:
             os.path.join(root, subdirectory)
         for file in files:
             visuals.finalIntpb +=1
-    
-    visuals.ProgressBar.Update()
+            
+    increments = visuals.progressBarMaxValue/visuals.finalIntpb
     visuals.ProgressBarText.Update(value = (str(visuals.currentIntpb) + "/" +str(visuals.finalIntpb)))
     for root, subdirectories, files in os.walk(directory):
         for subdirectory in subdirectories:
-            print(os.path.join(root, subdirectory))
+            os.path.join(root, subdirectory)
         for file in files:
             visuals.currentIntpb+=1
             visuals.ProgressBarText.Update(value = (str(visuals.currentIntpb) + "/" +str(visuals.finalIntpb)))
-            visuals.ProgressBar.Update(current_count=visuals.currentIntpb)
+            visuals.ProgressBar.Update(current_count=visuals.currentIntpb*increments)
             
             try:
                 openFile = open(os.path.join(root, file))
@@ -44,6 +44,7 @@ def ReadDocuments(Path:str)->None:
                 Curate(documentText,file)
             except:
                 pass
+    visuals.ProgressBar.Update(current_count=visuals.progressBarMaxValue)
 
 
 

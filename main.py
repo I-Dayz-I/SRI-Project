@@ -26,6 +26,15 @@ while True:
         break
     
     
+    if event == "-SUBMIT-":
+        globals.QueryList = []
+        # globals.QueryList = window.
+        vectorial.processQuery(values["-QUERY-"])
+        vectorial.findingResult()
+        print(values["-QUERY-"])
+    
+    
+    
     #Nor Check Boxes
     if event =="-NLTK-" or  NltkCkeckbox.Value :
         TrieCheckBox.Update(False)
@@ -57,12 +66,22 @@ while True:
     
     #if a Folder direction was chosen
     elif event== "-FOLDER-":
-        dir = values["-FOLDER-"]
         
-        reader.ReadDocuments(dir)
+        #window["-FOLDER-"].config(state='normal')
+        
+        
+        dir = values["-FOLDER-"]
+        globals.fnamesList = []
+        globals.TrieList = []
+        globals.CorpusDict = {}
         file_list= globals.fnamesList
-
-
+        window["-FILE LIST-"].update([])
+        currentIntpb = 0
+        finalIntpb = 0
+        ProgressBarText.Update(value=(str(currentIntpb) + "/" +str(finalIntpb)))
+        ProgressBar.Update(current_count=0)
+        reader.ReadDocuments(dir)
+        
         window["-FILE LIST-"].update(file_list)
         
         
