@@ -29,13 +29,12 @@ class Trie:
         
         for letter in Word:
             if letter not in lookingNode.children.keys:
-                return -1
+                return 0
             lookingNode = lookingNode.children[letter]
         
         if lookingNode.endOfWord is True:
             return lookingNode.wordCount
-        else:
-            return -1
+
     
     
 

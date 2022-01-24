@@ -27,10 +27,20 @@ while True:
     
     
     if event == "-SUBMIT-":
+        #Reseting Everything
+        #Diccionario de documentos: key = Filename , value = Trie
+        globals.CorpusDict = {}
+        globals.WordCorpusCount = {}
+        globals.CorpusInDoc = {}
+        globals.MostRepeatedValue = {}
+        globals.Frequency = {}
+        globals.FinalDocumentList = []
         globals.QueryList = []
-        # globals.QueryList = window.
+        
+        
         vectorial.processQuery(values["-QUERY-"])
-        vectorial.findingResult()
+        vectorial.FillingGlobals()
+        vectorial.ExecutingVectorial()
         print(values["-QUERY-"])
     
     
