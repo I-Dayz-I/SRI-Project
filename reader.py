@@ -6,6 +6,16 @@ import globals
 import os
 import visuals
 
+def processQuery(query):
+    splitquery =  re.split(' |,|_|-|\.|\?|\!|;|\+|\*|\:|\[|\]|\^|\$|\(|\)|\{|\}|\=|\||\-|\\n', query)
+    if not visuals.OmitCheckbox.Value:
+        globals.QueryList  = splitquery
+    else:
+        for word in splitquery:
+            if word in globals.Expelled:
+                splitquery.remove(word)
+        globals.QueryList  = splitquery
+        
 
     
 def ReadDocuments(Path:str)->None:
@@ -41,6 +51,7 @@ def ReadDocuments(Path:str)->None:
                 globals.fnamesList.append(file)
                 documentText = openFile.read()
                 openFile.close()
+                globals.filedirection[file] = os.path.join(root, file)
                 Curate(documentText,file)
             except:
                 pass
@@ -49,11 +60,16 @@ def ReadDocuments(Path:str)->None:
 
 
 def Curate(Text:str, File:str )->None:
-    curedText = re.split(' |\.|\\|\+|\*|\?|\[|\^|\]|\$|\(|\)|\{|\}|\=|\!|\||\:|\-|',Text)
+    curedText = re.split(' |\.|\\|\+|\*|\?|\[|\^|\]|\$|\(|\)|\{|\}|\=|\!|\||\:|\-|\\n|\/',Text)
     temptrie = trie.Trie(File)
     for Word in curedText:
+        
+        if visuals.OmitCheckbox.Value:
+            if Word in globals.Expelled:
+                continue
+        
         temptrie.InsertWord(Word)
-        globals.TrieList.append(temptrie)
+    globals.TrieList.append(temptrie)
     
     globals.CorpusDict[File] = temptrie
     

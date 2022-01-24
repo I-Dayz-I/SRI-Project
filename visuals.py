@@ -6,15 +6,18 @@ sg.theme('DarkAmber')
 
 
 
-TrieCheckBox  = sg.Checkbox(enable_events = True,key =  "-TRIE-",text = "Linked Trie", default  = False)
-NltkCkeckbox = sg.Checkbox(enable_events = True,key =  "-NLTK-",text = "nltk Library", default = True )
+LinkedTrieCheckBox  = sg.Checkbox(enable_events = True,key =  "-LINKTRIE-",text = "Linked Trie", default  = False)
+TrieCkeckbox = sg.Checkbox(enable_events = True,key =  "-TRIE-",text = "Trie", default = True )
 AlphaCheckbox = sg.Checkbox(enable_events = True,key =  "-INTCHECK-",text = "Is valid", checkbox_color = 'red', default = False ,  disabled=False)
+SlackCheckbox = sg.Checkbox(enable_events = True,key =  "-SLACKCHECK-",text = "Is valid", checkbox_color = 'red', default = False ,  disabled=False)
+OmitCheckbox = sg.Checkbox(enable_events = True,key =  "-SKIP-",text = "Skip unnecesary words in the search(pronouns,articles,etc...)", default = False ,  disabled=False)
+
 
 currentIntpb = 0
 finalIntpb = 0
 progressBarMaxValue = 20000
 
-ProgressBar = sg.ProgressBar(max_value=progressBarMaxValue,size=(60, 20))
+ProgressBar = sg.ProgressBar(max_value=progressBarMaxValue,size=(50, 20))
 ProgressBarText = sg.Text(str(currentIntpb) + "/" +str(finalIntpb))
 
 file_list_column = [
@@ -22,12 +25,28 @@ file_list_column = [
             sg.Text("Processing Algorithm:",justification="right", )  ,
     ],
     [
-        TrieCheckBox,
-        NltkCkeckbox,
+        LinkedTrieCheckBox,
+        TrieCkeckbox,
     ],
-      # [ sg.VSeparator()],
     [
-    sg.Text("α: ",justification="right", )  ,
+    sg.HSeparator(),
+    ],
+    [
+    
+    OmitCheckbox
+    ],
+    [
+    sg.HSeparator(),
+    ],
+    [
+    sg.Text("Slack of Result:",justification="right", )  ,
+    sg.In(enable_events=True, key="-SLACK INPUT-",),
+    SlackCheckbox,
+    sg.Text(" (Default: 0.1 )",justification="right", )  ,
+    ],
+    # [ sg.VSeparator()],
+    [
+    sg.Text("         (alpha)α: ",justification="right", )  ,
     sg.In(enable_events=True, key="-ALPHA INPUT-",),
     AlphaCheckbox,
     sg.Text(" (Default: 0.4 )",justification="right", )  ,
@@ -48,7 +67,7 @@ file_list_column = [
     [sg.Text("List of Files:")],
     [
         sg.Listbox(
-            values= [],enable_events = True,s=(100,100),horizontal_scroll=True,
+            values= [],enable_events = True,s=(80,100),horizontal_scroll=True,
             key = "-FILE LIST-"
         )
         
@@ -65,7 +84,12 @@ file_list_column = [
 
 
 view_column = [
-    
+    [
+    sg.Text("Not Showing:", key = "-DOCUMENT NAME-"),
+    ],
+    [
+    sg.Multiline(s=(60,60),enable_events=True, key="-SHOW-",default_text="Click on a document of the list to show it here.",disabled=True,autoscroll=True)
+    ],
 ]
 
 
@@ -82,10 +106,11 @@ query_column = [
 
     [sg.Text("Query:")],
     [
-        sg.Multiline(s=(900,20),enable_events=True, key="-QUERY-"),
+        sg.Multiline(s=(400,20),enable_events=True, key="-QUERY-"),
     ],
     [
-        sg.Button(button_text="Submit",enable_events=True, key= "-SUBMIT-")   
+        sg.Button(button_text="Submit",enable_events=True, key= "-SUBMIT-"),
+        sg.Text("Time: ", key = "-TIME-")   
     ],
     [
     sg.HSeparator()
@@ -102,6 +127,8 @@ query_column = [
 layout = [
     [
         sg.Column(file_list_column),
+        sg.VSeparator(),
+        sg.Column(view_column),
         sg.VSeparator(),
         sg.Column(query_column),
     ]
