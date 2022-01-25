@@ -51,7 +51,6 @@ file_list_column = [
     AlphaCheckbox,
     sg.Text(" (Default: 0.4 )",justification="right", )  ,
     ],
-    
     [
         sg.HSeparator()],
     [
@@ -88,7 +87,16 @@ view_column = [
     sg.Text("Not Showing:", key = "-DOCUMENT NAME-"),
     ],
     [
-    sg.Multiline(s=(60,60),enable_events=True, key="-SHOW-",default_text="Click on a document of the list to show it here.",disabled=True,autoscroll=True)
+    sg.Multiline(s=(60,30),enable_events=True, key="-SHOW-",default_text="Click on a document of the list to show it here.",disabled=True,autoscroll=True)
+    ],
+    [
+    sg.HSeparator()
+    ],
+    [
+    sg.Text("Log:")
+    ],
+    [
+        sg.Multiline(s=(60,30),enable_events=True, key="-LOG-",default_text="Execution Log:",disabled=True,autoscroll=True)
     ],
 ]
 

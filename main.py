@@ -27,11 +27,15 @@ while True:
     
     
     if event == "-SUBMIT-" and values["-QUERY-"] != "":
+        globals.wordsNotFound ={}
+        globals.wordsNotFounList =[]
+        globals.wordsList = []
+        window["-LOG-"].write("\n"+"---------------------STARTING SEARCH------------------------")
         start =time.time()
         globals.FinalDocumentList=[]
         reader.processQuery(values["-QUERY-"])
         vectorial.FillingGlobals()
-        if TrieCkeckbox.Value :
+        if values["-TRIE-"] :
             vectorial.ExecutingVectorial()
         else:
             vectorial.ExecutingLinkVectorial()
@@ -39,6 +43,10 @@ while True:
         window["-RESULT LIST-"].update(globals.FinalDocumentList)
         end = time.time()
         window["-TIME-"].update("Time: " + str(end-start))
+        
+        if len(globals.wordsList) !=0:
+            window["-LOG-"].write("\n"+"This word(s) were not found:" + str(globals.wordsList)+"\n"+"Maybe you should try this one(s):" +str(globals.wordsNotFounList))
+        
 
 
     
@@ -68,6 +76,7 @@ while True:
                 AlphaCheckbox.Update(True)
                 AlphaCheckbox.Update(checkbox_color='green')
                 globals.alphaValue = temp
+                window["-LOG-"].write("\n"+"Alpha value successfully change.")
             else:
                 AlphaCheckbox.Update(False)
                 AlphaCheckbox.Update(checkbox_color='red')
@@ -91,6 +100,7 @@ while True:
                 SlackCheckbox.Update(True)
                 SlackCheckbox.Update(checkbox_color='green')
                 globals.returnMinValue = temp
+                window["-LOG-"].write("\n"+"Slack value successfully change.")
             else:
                 SlackCheckbox.Update(False)
                 SlackCheckbox.Update(checkbox_color='red')
@@ -126,8 +136,10 @@ while True:
         ProgressBarText.Update(value=(str(currentIntpb) + "/" +str(finalIntpb)))
         ProgressBar.Update(current_count=0)
         reader.ReadDocuments(dir)
+        window["-LOG-"].write("\n"+"COMPILING DOCUMENTS OF:" +dir)
         
         window["-FILE LIST-"].update(file_list)
+        window["-LOG-"].write("\n"+"COMPILING FINISHED" +dir)
         
     if event == "-FILE LIST-":
         try:
@@ -149,7 +161,13 @@ while True:
         except:
             pass
 
-        
+    if event == "-SKIP-" and not globals.BanWords:
+        window["-LOG-"].write("\n"+"Skipping unnecesary words: TRUE")
+        globals.BanWords =True
+    
+    elif event == "-SKIP-" and globals.BanWords:
+        window["-LOG-"].write("\n"+"Skipping unnecesary words: FALSE")
+        globals.BanWords =False
         
 
 

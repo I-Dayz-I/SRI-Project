@@ -8,14 +8,23 @@ import visuals
 
 def processQuery(query):
     splitquery =  re.split(' |,|_|-|\.|\?|\!|;|\+|\*|\:|\[|\]|\^|\$|\(|\)|\{|\}|\=|\||\-|\\n', query)
-    if not visuals.OmitCheckbox.Value:
+    while True:
+        try:
+            splitquery.remove("")
+        except:
+            break
+    if not globals.BanWords:
         globals.QueryList  = splitquery
     else:
         for word in splitquery:
-            if word in globals.Expelled:
+            if word in globals.Expelled or word == "":
                 splitquery.remove(word)
         globals.QueryList  = splitquery
-        
+    temptrie = trie.Trie("query")
+    for word in  globals.QueryList:
+        temptrie.InsertWord(word)
+    
+    globals.TrieQuery =temptrie
 
     
 def ReadDocuments(Path:str)->None:
@@ -25,7 +34,7 @@ def ReadDocuments(Path:str)->None:
     # for file in onlyfiles:
     #     openFile = open(Path + "\\" + file,'r')
     #     documentText = openFile.read()
-    #     openFile.close()
+    #     openFile.close()s
         
     #     Curate(documentText,file)
     directory = Path
@@ -35,8 +44,10 @@ def ReadDocuments(Path:str)->None:
             os.path.join(root, subdirectory)
         for file in files:
             visuals.finalIntpb +=1
-            
-    increments = visuals.progressBarMaxValue/visuals.finalIntpb
+    try:
+        increments = visuals.progressBarMaxValue/visuals.finalIntpb
+    except:
+        return
     visuals.ProgressBarText.Update(value = (str(visuals.currentIntpb) + "/" +str(visuals.finalIntpb)))
     for root, subdirectories, files in os.walk(directory):
         for subdirectory in subdirectories:
@@ -60,12 +71,12 @@ def ReadDocuments(Path:str)->None:
 
 
 def Curate(Text:str, File:str )->None:
-    curedText = re.split(' |\.|\\|\+|\*|\?|\[|\^|\]|\$|\(|\)|\{|\}|\=|\!|\||\:|\-|\\n|\/',Text)
+    curedText = re.split(' |,|_|-|\.|\?|\!|;|\+|\*|\:|\[|\]|\^|\$|\(|\)|\{|\}|\=|\||\-|\\n',Text)
     temptrie = trie.Trie(File)
     for Word in curedText:
         
-        if visuals.OmitCheckbox.Value:
-            if Word in globals.Expelled:
+        if globals.BanWords:
+            if Word in globals.Expelled or Word == "":
                 continue
         
         temptrie.InsertWord(Word)
